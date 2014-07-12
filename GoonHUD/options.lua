@@ -10,6 +10,10 @@ Options.EnemyManager.CurrentMaxCorpses = 256
 Options.EnemyManager.ShowGrenadeMarker = false
 Options.EnemyManager.UseDefaultGrenadeTimer = true
 
+Options.Suspicion = {}
+Options.Suspicion.ShowPercentage = true
+Options.Suspicion.ShowPercentageOutline = true
+
 function Options:GetSaveString()
 
 	local contents = "";
