@@ -6,13 +6,13 @@ local scriptsToLoad = {
 }
 
 local requiredScriptsToLoad = {
-	["lib/managers/systemmenumanager"] = "SimpleMenu.lua",
 	["lib/managers/chatmanager"] = "ChatManager.lua",
 	["lib/managers/enemymanager"] = "EnemyManager.lua",
 	["lib/managers/menumanager"] = "MenuManager.lua",
 	["lib/managers/localizationmanager"] = "LocalizationManager.lua",
 	["lib/units/weapons/grenades/quicksmokegrenade"] = "QuickSmokeGrenade.lua",
-	["lib/managers/hud/hudsuspicion"] = "HUDSuspicion.lua"
+	["lib/managers/hud/hudsuspicion"] = "HUDSuspicion.lua",
+	["lib/tweak_data/skilltreetweakdata"] = "SkillTreeTweak.lua"
 }
 
 -- HUD
@@ -90,6 +90,19 @@ if not _G.SaveTable then
 	end
 end
 
+if not _G.SafeDoFile then
+
+	function _G.SafeDoFile( fileName )
+		
+		local success, errorMsg = pcall(function() dofile( fileName ) end)
+		if not success then
+			Print("[Error]\nFile: " .. fileName .. "\n" .. errorMsg)
+		end
+
+	end
+
+end
+
 -- Load Options
 if not _G.GoonHUD.Options then 
 	dofile( "GoonHud/options.lua" )
@@ -149,10 +162,12 @@ if requiredScriptsToLoad[requiredScript] then
 	
 	if type( requiredScriptsToLoad[requiredScript] ) == "table" then
 		for k, v in pairs( requiredScriptsToLoad[requiredScript] ) do
-			dofile( path .. v )
+			-- dofile( path .. v )
+			SafeDoFile( path .. v )
 		end
 	else
-		dofile( path .. requiredScriptsToLoad[requiredScript] )
+		-- dofile( path .. requiredScriptsToLoad[requiredScript] )
+		SafeDoFile( path .. requiredScriptsToLoad[requiredScript] )
 	end
 
 end
@@ -161,7 +176,8 @@ end
 if not _G.GoonHUD.HasLoadedScripts then
 
 	for k, v in pairs( scriptsToLoad ) do
-		dofile( path .. v )
+		-- dofile( path .. v )
+		SafeDoFile( path .. v )
 	end
 
 	_G.GoonHUD.HasLoadedScripts = true

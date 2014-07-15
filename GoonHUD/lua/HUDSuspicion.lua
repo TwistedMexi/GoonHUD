@@ -1,9 +1,19 @@
 
 CloneClass( HUDSuspicion )
 
+Hooks:RegisterHook( "HUDSuspicionInitialize" )
 function HUDSuspicion.init(this, hud, sound_source)
-
 	HUDSuspicion.orig.init(this, hud, sound_source)
+	Hooks:Call( "HUDSuspicionInitialize", this, hud, sound_source )
+end
+
+Hooks:RegisterHook( "HUDSuspicionAnimateEye" )
+function HUDSuspicion.animate_eye(this)
+	this.orig.animate_eye(this)
+	Hooks:Call("HUDSuspicionAnimateEye", this)
+end
+
+Hooks:Add( "HUDSuspicionInitialize", "HUDSuspicionInitialize_Percentage", function(this, hud, sound_source)
 
 	if not GoonHUD.Options.Suspicion.ShowPercentage then
 		return
@@ -58,11 +68,9 @@ function HUDSuspicion.init(this, hud, sound_source)
 
 	end
 
-end
+end )
 
-function HUDSuspicion.animate_eye(this)
-
-	this.orig.animate_eye(this)
+Hooks:Add( "HUDSuspicionAnimateEye", "HUDSuspicionAnimateEye_Percentage", function(this)
 
 	if not GoonHUD.Options.Suspicion.ShowPercentage then
 		return
@@ -83,4 +91,4 @@ function HUDSuspicion.animate_eye(this)
 		end
 	end
 
-end
+end )

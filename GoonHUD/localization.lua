@@ -15,3 +15,10 @@ Localization.OptionsMenu_SuspicionPercent = "Show suspicion percentage"
 Localization.OptionsMenu_SuspicionPercentDesc = "Show your suspicion as a percentage while being detected"
 Localization.OptionsMenu_SuspicionPercentOutline = "Outline suspicion percentage"
 Localization.OptionsMenu_SuspicionPercentOutlineDesc = "Outline your suspicion percentage to make it easier to read"
+
+Localization.Skill_Class = "Custom"
+Localization.Skill_ClassDesc = "Some custom stuff"
+Localization.Skill_ClassTier1 = "Some description of the first tier"
+
+Localization.Skill_Test = "Test"
+Localization.Skill_TestDesc = "A test skill, idk.\nIt doesn't actually do anything yet though."
