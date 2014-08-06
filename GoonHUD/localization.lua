@@ -28,7 +28,7 @@ Localization.Ironman_ToggleDesc = "Enable ironman mode on heists. If you are kil
 Localization.Ironman_HeistExperience = "Ironman Bonus"
 Localization.Ironman_NoTradeTitle = "Ironman Mode"
 Localization.Ironman_NoTrade = "No Trading"
-Localization.Ironman_NoRespawn = "No Respawn"
+Localization.Ironman_NoRespawn = "No Respawning"
 
 Localization.Hostage_Toggle = "Enabled Advanced Hostage Trading"
 Localization.Hostage_ToggleDesc = "Allow trading hostages for equipment, money, and favors."
