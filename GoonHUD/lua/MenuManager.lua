@@ -135,15 +135,25 @@ Hooks:Add( "MenuManagerInitialize", "MenuManagerInitialize_AddGoonHUDMenuItem", 
 	-- Clear Items
 	goonhudMenu._items = {}
 
-	-- Grenade Marker Toggle
+	-- Ironman Mode Toggle
 	MenuManager.GoonHUDHelper.AddToggle(
-		"toggle_grenade_marker",
-		"OptionsMenu_GrenadeMarker",
-		"OptionsMenu_GrenadeMarkerDesc",
-		"toggle_grenade_marker",
-		GoonHUD.Options.EnemyManager.ShowGrenadeMarker,
+		"toggle_ironman_mode",
+		"Ironman_Toggle",
+		"Ironman_ToggleDesc",
+		"toggle_ironman_mode",
+		GoonHUD.Options.Ironman.Enabled,
 		goonhudMenu
 	)
+
+	-- Advanced Hostages
+	-- MenuManager.GoonHUDHelper.AddToggle(
+	-- 	"toggle_adv_hostage_mode",
+	-- 	"Hostage_Toggle",
+	-- 	"Hostage_ToggleDesc",
+	-- 	"toggle_adv_hostage_mode",
+	-- 	GoonHUD.Options.AdvHostages.Enabled,
+	-- 	goonhudMenu
+	-- )
 
 	-- Custom Corpse Amount Toggle
 	MenuManager.GoonHUDHelper.AddToggle(
@@ -165,23 +175,13 @@ Hooks:Add( "MenuManagerInitialize", "MenuManagerInitialize_AddGoonHUDMenuItem", 
 		goonhudMenu
 	)
 
-	-- Show Suspicion Percent
+	-- Grenade Marker Toggle
 	MenuManager.GoonHUDHelper.AddToggle(
-		"toggle_suspicion_percent",
-		"OptionsMenu_SuspicionPercent",
-		"OptionsMenu_SuspicionPercentDesc",
-		"toggle_suspicion_percent",
-		GoonHUD.Options.Suspicion.ShowPercentage,
-		goonhudMenu
-	)
-
-	-- Show Suspicion Outline Toggle
-	MenuManager.GoonHUDHelper.AddToggle(
-		"toggle_suspicion_percent_outline",
-		"OptionsMenu_SuspicionPercentOutline",
-		"OptionsMenu_SuspicionPercentOutlineDesc",
-		"toggle_suspicion_percent_outline",
-		GoonHUD.Options.Suspicion.ShowPercentageOutline,
+		"toggle_grenade_marker",
+		"OptionsMenu_GrenadeMarker",
+		"OptionsMenu_GrenadeMarkerDesc",
+		"toggle_grenade_marker",
+		GoonHUD.Options.EnemyManager.ShowGrenadeMarker,
 		goonhudMenu
 	)
 
@@ -218,13 +218,14 @@ function MenuCallbackHandler:toggle_grenade_marker(item)
 	GoonHUD.Options:Save()
 end
 
-function MenuCallbackHandler:toggle_suspicion_percent(item)
-	GoonHUD.Options.Suspicion.ShowPercentage = item:value() == "on" and true or false
+function MenuCallbackHandler:toggle_ironman_mode(item)
+	GoonHUD.Options.Ironman.Enabled = item:value() == "on" and true or false
+	GoonHUD.Ironman:SetEnabled( GoonHUD.Options.Ironman.Enabled )
 	GoonHUD.Options:Save()
 end
 
-function MenuCallbackHandler:toggle_suspicion_percent_outline(item)
-	GoonHUD.Options.Suspicion.ShowPercentageOutline = item:value() == "on" and true or false
+function MenuCallbackHandler:toggle_adv_hostage_mode(item)
+	GoonHUD.Options.AdvHostages.Enabled = item:value() == "on" and true or false
 	GoonHUD.Options:Save()
 end
 

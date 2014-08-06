@@ -11,8 +11,17 @@ Options.EnemyManager.ShowGrenadeMarker = false
 Options.EnemyManager.UseDefaultGrenadeTimer = true
 
 Options.Suspicion = {}
-Options.Suspicion.ShowPercentage = true
-Options.Suspicion.ShowPercentageOutline = true
+Options.Suspicion.ShowPercentage = false
+Options.Suspicion.ShowPercentageOutline = false
+
+Options.Stats = {}
+Options.Stats.SpoofStats = false
+
+Options.Ironman = {}
+Options.Ironman.Enabled = false
+
+Options.AdvHostages = {}
+Options.AdvHostages.Enabled = false
 
 function Options:GetSaveString()
 

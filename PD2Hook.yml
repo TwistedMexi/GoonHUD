@@ -13,13 +13,30 @@ PersistScripts:
 
 PostRequireScripts:
 # GoonHUD
+  # - [core/lib/setups/coresetup, GoonHud/goonhud.lua]
   - [lib/managers/menumanager, GoonHud/goonhud.lua]
   - [lib/managers/chatmanager, GoonHud/goonhud.lua]
   - [lib/managers/enemymanager, GoonHud/goonhud.lua]
   - [lib/managers/localizationmanager, GoonHud/goonhud.lua]
   - [lib/units/weapons/grenades/quicksmokegrenade, GoonHud/goonhud.lua]
-  - [lib/managers/hud/hudsuspicion, GoonHud/goonhud.lua]
-  - [lib/tweak_data/skilltreetweakdata, GoonHud/goonhud.lua]
+  - [lib/managers/hudmanager, GoonHud/goonhud.lua]
+  - [lib/managers/statisticsmanager, GoonHud/goonhud.lua]
+
+  - [lib/units/civilians/civiliandamage, GoonHud/goonhud.lua]
+  - [lib/managers/trademanager, GoonHud/goonhud.lua]
+  - [lib/managers/hintmanager, GoonHud/goonhud.lua]
+  - [lib/managers/playermanager, GoonHud/goonhud.lua]
+  - [lib/managers/hud/hudstageendscreen, GoonHud/goonhud.lua]
+  - [lib/units/beings/player/playerdamage, GoonHud/goonhud.lua]
+  - [lib/managers/hud/hudblackscreen, GoonHud/goonhud.lua]
+  - [lib/managers/hud/hudmissionbriefing, GoonHud/goonhud.lua]
+  - [lib/managers/hud/hudplayercustody, GoonHud/goonhud.lua]
+  - [lib/network/handlers/connectionnetworkhandler, GoonHud/goonhud.lua]
+  - [lib/managers/menu/contractboxgui, GoonHud/goonhud.lua]
+
+  # - [lib/tweak_data/skilltreetweakdata, GoonHud/goonhud.lua]
+  # - [lib/units/enemies/cop/logics/coplogictravel, GoonHud/goonhud.lua]
+  # - [lib/tweak_data/charactertweakdata, GoonHud/goonhud.lua]
 
 # CloseScripts:
 #   - LUA\statesaver.lua

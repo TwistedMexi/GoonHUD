@@ -6,20 +6,41 @@ local scriptsToLoad = {
 }
 
 local requiredScriptsToLoad = {
+
+	["core/lib/setups/coresetup"] = "CoreSetup.lua",
 	["lib/managers/chatmanager"] = "ChatManager.lua",
 	["lib/managers/enemymanager"] = "EnemyManager.lua",
 	["lib/managers/menumanager"] = "MenuManager.lua",
 	["lib/managers/localizationmanager"] = "LocalizationManager.lua",
 	["lib/units/weapons/grenades/quicksmokegrenade"] = "QuickSmokeGrenade.lua",
+	["lib/tweak_data/skilltreetweakdata"] = "SkillTreeTweak.lua",
 	["lib/managers/hud/hudsuspicion"] = "HUDSuspicion.lua",
-	["lib/tweak_data/skilltreetweakdata"] = "SkillTreeTweak.lua"
+	["lib/managers/hud/hudteammate"] = "HUDTeammate.lua",
+	["lib/managers/hudmanager"] = "HUDManager.lua",
+	["lib/units/enemies/cop/logics/coplogictravel"] = "CopLogic.lua",
+	["lib/tweak_data/charactertweakdata"] = "CharacterTweakData.lua",
+	["lib/managers/statisticsmanager"] = "StatisticsManager.lua",
+
+	["lib/units/civilians/civiliandamage"] = "CivilianDamage.lua",
+	["lib/managers/trademanager"] = "TradeManager.lua",
+	["lib/managers/hintmanager"] = "HintManager.lua",
+	["lib/managers/playermanager"] = "PlayerManager.lua",
+	["lib/managers/hud/hudstageendscreen"] = "HUDStageEndScreen.lua",
+	["lib/units/beings/player/playerdamage"] = "PlayerDamage.lua",
+	["lib/managers/hud/hudblackscreen"] = "HUDBlackScreen.lua",
+	["lib/managers/hud/hudmissionbriefing"] = "HUDMissionBriefing.lua",
+	["lib/managers/hud/hudplayercustody"] = "HUDPlayerCustody.lua",
+	["lib/network/handlers/connectionnetworkhandler"] = "ConnectionNetworkHandler.lua",
+	["lib/managers/menu/contractboxgui"] = "ContractBoxGUI.lua",
+
 }
 
 -- HUD
 if not _G.GoonHUD then
 	_G.GoonHUD = {}
-	_G.GoonHUD.Version = "0.01"
+	_G.GoonHUD.Version = "0.02"
 	_G.GoonHUD.LuaPath = "GoonHud/lua/"
+	_G.GoonHUD.SafeMode = true
 end
 
 -- Load Utils
@@ -93,24 +114,20 @@ end
 if not _G.SafeDoFile then
 
 	function _G.SafeDoFile( fileName )
+
+		if _G.GoonHUD.SafeMode then
 		
-		local success, errorMsg = pcall(function() dofile( fileName ) end)
-		if not success then
-			Print("[Error]\nFile: " .. fileName .. "\n" .. errorMsg)
+			local success, errorMsg = pcall(function() dofile( fileName ) end)
+			if not success then
+				Print("[Error]\nFile: " .. fileName .. "\n" .. errorMsg)
+			end
+
+		else
+			dofile(fileName)
 		end
 
 	end
 
-end
-
--- Load Options
-if not _G.GoonHUD.Options then 
-	dofile( "GoonHud/options.lua" )
-end
-
--- Load Localization
-if not _G.GoonHUD.Localization then
-	dofile( "GoonHud/localization.lua" )
 end
 
 -- Hooks
@@ -152,8 +169,63 @@ if not _G.Hooks then
 
 	end
 
+	function Hooks:PCall( key, ... )
+
+		if self[key] ~= nil then
+			for k, v in pairs(self[key]) do
+				if v ~= nil and type(v) == "function" then
+					local args = ...
+					local success, err = pcall( function() v( args ) end )
+					if not success then
+						Print("[Error]\nHook: " .. k .. "\n" .. err)
+					end
+				end
+			end
+		end
+
+	end
+
 end
 
+-- Load Options
+if not _G.GoonHUD.Options then 
+	dofile( "GoonHud/options.lua" )
+end
+
+-- Load Localization
+if not _G.GoonHUD.Localization then
+	dofile( "GoonHud/localization.lua" )
+end
+
+-- Load Ironman Mode
+if not _G.GoonHUD.Ironman then 
+	dofile( "GoonHud/ironman.lua" )
+end
+
+-- Network Helper
+if not _G.GoonHUD.Network then
+
+	_G.GoonHUD.Network = {}
+
+	function _G.GoonHUD.Network:IsMultiplayer()
+		return Network
+	end
+
+	function _G.GoonHUD.Network:IsHost()
+		if not Network then
+			return false
+		end
+		return not Network:is_client()
+	end
+
+	function _G.GoonHUD.Network:IsClient()
+		if not Network then
+			return false
+		end
+		return Network:is_client()
+	end
+
+end
 
 -- Load Post Require Scripts
 local path = _G.GoonHUD.LuaPath
@@ -162,11 +234,9 @@ if requiredScriptsToLoad[requiredScript] then
 	
 	if type( requiredScriptsToLoad[requiredScript] ) == "table" then
 		for k, v in pairs( requiredScriptsToLoad[requiredScript] ) do
-			-- dofile( path .. v )
 			SafeDoFile( path .. v )
 		end
 	else
-		-- dofile( path .. requiredScriptsToLoad[requiredScript] )
 		SafeDoFile( path .. requiredScriptsToLoad[requiredScript] )
 	end
 
@@ -176,7 +246,6 @@ end
 if not _G.GoonHUD.HasLoadedScripts then
 
 	for k, v in pairs( scriptsToLoad ) do
-		-- dofile( path .. v )
 		SafeDoFile( path .. v )
 	end
 
