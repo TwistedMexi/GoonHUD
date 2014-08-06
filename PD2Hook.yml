@@ -1,5 +1,5 @@
 Config:
-  OutputMode: 7
+  OutputMode: 1
   OutputFile: GoonHUD.log
   PrintOffsets: false
   ExtraCols: 10
